@@ -57,6 +57,10 @@
       display: block;
     }
 
+    .treble-clef {
+      transform-origin: center;
+    }
+
     /* Note animation */
     .note-group {
       transition: opacity 0.2s;
@@ -96,6 +100,13 @@
       font-size: clamp(0.75rem, 2.5vw, 0.9rem);
       color: #c0a070;
     }
+
+    /* iOS Safari renders the glyph baseline slightly lower. */
+    @media (max-width: 640px) {
+      .treble-clef {
+        transform: translateY(-8px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -120,7 +131,7 @@
 
     <!-- ======= Treble Clef (drawn with path) ======= -->
     <!-- Simple treble clef SVG path centered at x=95, staff center ~120 -->
-    <text x="82" y="170" font-size="140" font-family="serif" fill="#333"
+    <text class="treble-clef" x="82" y="170" font-size="140" font-family="serif" fill="#333"
           style="font-weight:100; line-height:1">𝄞</text>
 
     <!-- ======= Notes will be injected here ======= -->
