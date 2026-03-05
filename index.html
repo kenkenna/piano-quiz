@@ -57,9 +57,6 @@
       display: block;
     }
 
-    .treble-clef {
-      transform-origin: center;
-    }
 
     /* Note animation */
     .note-group {
@@ -101,12 +98,6 @@
       color: #c0a070;
     }
 
-    /* iOS Safari renders the glyph baseline slightly lower. */
-    @media (max-width: 640px) {
-      .treble-clef {
-        transform: translateY(-8px);
-      }
-    }
   </style>
 </head>
 <body>
@@ -131,7 +122,7 @@
 
     <!-- ======= Treble Clef (drawn with path) ======= -->
     <!-- Simple treble clef SVG path centered at x=95, staff center ~120 -->
-    <text class="treble-clef" x="82" y="170" font-size="140" font-family="serif" fill="#333"
+    <text id="trebleClef" x="82" y="170" font-size="140" font-family="serif" fill="#333"
           style="font-weight:100; line-height:1">𝄞</text>
 
     <!-- ======= Notes will be injected here ======= -->
@@ -168,6 +159,14 @@
   const RX = 13, RY = 10;
 
   let count = 1;
+
+  function adjustTrebleClefPosition() {
+    const clef = document.getElementById('trebleClef');
+    if (!clef) return;
+    // On iPhone Safari the glyph baseline tends to render lower.
+    const isNarrowScreen = window.matchMedia('(max-width: 640px)').matches;
+    clef.setAttribute('y', isNarrowScreen ? '162' : '170');
+  }
 
   function pickRandomNotes(n) {
     // Pick n distinct notes from NOTES
@@ -234,7 +233,9 @@
   }
 
   // Initial display
+  adjustTrebleClefPosition();
   renderNotes(pickRandomNotes(3));
+  window.addEventListener('resize', adjustTrebleClefPosition);
 </script>
 
 </body>
