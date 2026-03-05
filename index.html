@@ -163,9 +163,23 @@
   function adjustTrebleClefPosition() {
     const clef = document.getElementById('trebleClef');
     if (!clef) return;
-    // On iPhone Safari the glyph baseline tends to render lower.
-    const isNarrowScreen = window.matchMedia('(max-width: 640px)').matches;
-    clef.setAttribute('y', isNarrowScreen ? '162' : '170');
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    const isTablet = window.matchMedia('(max-width: 1024px)').matches;
+
+    if (isMobile) {
+      clef.setAttribute('font-size', '146');
+      clef.setAttribute('y', '171');
+      return;
+    }
+
+    if (isTablet) {
+      clef.setAttribute('font-size', '144');
+      clef.setAttribute('y', '170');
+      return;
+    }
+
+    clef.setAttribute('font-size', '140');
+    clef.setAttribute('y', '170');
   }
 
   function pickRandomNotes(n) {
