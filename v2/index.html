@@ -146,24 +146,71 @@
       font-size: clamp(0.75rem, 2.5vw, 0.9rem);
       color: #c0a070;
     }
+
+    .app-header {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      body {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        gap: 16px;
+        min-height: 100vh;
+      }
+
+      .app-header {
+        width: 165px;
+        flex-shrink: 0;
+        max-width: none;
+      }
+
+      h1 { font-size: 1rem; margin-bottom: 3px; }
+      .subtitle { font-size: 0.72rem; margin-bottom: 6px; }
+      .level-selector { gap: 4px; margin-bottom: 6px; }
+      .level-buttons { gap: 5px; }
+      .level-btn { width: 28px; height: 28px; font-size: 0.76rem; }
+      .level-desc { font-size: 0.64rem; }
+      .tap-hint { margin-top: 8px; font-size: 0.78rem; gap: 5px; }
+      .tap-icon { font-size: 1.1em; }
+      .counter { margin-top: 4px; font-size: 0.7rem; }
+
+      .staff-container {
+        flex: 1;
+        min-width: 0;
+        max-width: none;
+        padding: 12px 16px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<h1>🎵 おんぷクイズ</h1>
-<p class="subtitle">この音符は何の音？</p>
+<div class="app-header">
+  <h1>🎵 おんぷクイズ</h1>
+  <p class="subtitle">この音符は何の音？</p>
 
-<div class="level-selector">
-  <span class="level-label">レベル</span>
-  <div class="level-buttons">
-    <button class="level-btn active" onclick="selectLevel(0)">1</button>
-    <button class="level-btn" onclick="selectLevel(1)">2</button>
-    <button class="level-btn" onclick="selectLevel(2)">3</button>
-    <button class="level-btn" onclick="selectLevel(3)">4</button>
-    <button class="level-btn" onclick="selectLevel(4)">5</button>
-    <button class="level-btn" onclick="selectLevel(5)">6</button>
+  <div class="level-selector">
+    <span class="level-label">レベル</span>
+    <div class="level-buttons">
+      <button class="level-btn active" onclick="selectLevel(0)">1</button>
+      <button class="level-btn" onclick="selectLevel(1)">2</button>
+      <button class="level-btn" onclick="selectLevel(2)">3</button>
+      <button class="level-btn" onclick="selectLevel(3)">4</button>
+      <button class="level-btn" onclick="selectLevel(4)">5</button>
+      <button class="level-btn" onclick="selectLevel(5)">6</button>
+    </div>
+    <span class="level-desc" id="levelDesc">ど・れ・み</span>
   </div>
-  <span class="level-desc" id="levelDesc">ど・れ・み</span>
+
+  <p class="tap-hint"><span class="tap-icon">👆</span> タップで次の問題へ</p>
+  <p class="counter" id="counter">第 1 問</p>
 </div>
 
 <div class="staff-container" id="staffCard" onclick="showNewNotes()">
@@ -182,9 +229,6 @@
     <g id="notesLayer"></g>
   </svg>
 </div>
-
-<p class="tap-hint"><span class="tap-icon">👆</span> タップで次の問題へ</p>
-<p class="counter" id="counter">第 1 問</p>
 
 <script>
   const ALL_NOTES = {
